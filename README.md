@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/d3media/dynectjs.png)](https://travis-ci.org/d3media/dynectjs)
 dynectjs
 ========
 
