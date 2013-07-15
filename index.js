@@ -149,6 +149,14 @@ Dynect.prototype.removeCNameRecord = function(zone, node, callback)
 		},
 		function(err)
 		{
+			if (err)
+				return callback(err);
+
+			// - publish
+			self.send('PUT', '/Zone/' + zone, {publish: 'true'}, function(err)
+			{
+				return callback(err);
+			});
 			return callback(err);
 		});
 	});
