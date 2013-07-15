@@ -46,3 +46,24 @@ describe('#send', function() {
 		});
 	});
 });
+
+describe('Checking params handling (callback should be called)', function()
+{
+	it('Should work without params', function(done)
+	{
+		dynectjs.send('GET', '/Session', function(err, response)
+		{
+			should.exist(err);
+			done();			
+		});
+	});
+
+	it('Should work with params', function(done)
+	{
+		dynectjs.send('GET', '/Session', {test: 'param'}, function(err, response)
+		{
+			should.exist(err);
+			done();			
+		});
+	});
+});
