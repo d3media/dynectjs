@@ -111,14 +111,14 @@ Dynect.prototype.getCNameRecord = function(zone, node, callback)
 	});
 };
 
-Dynect.prototype.removeCNameRecord = function(zone, node, callback)
+Dynect.prototype.removeCNameRecord = function(zone, node, mainCallback)
 {
 	var self = this;
 
 	this.getCNameRecord(zone, node, function(err, response)
 	{
 		if(err)
-			return callback(err);
+			return mainCallback(err);
 
 		var records = [];
 		var recordSplit;
@@ -149,7 +149,14 @@ Dynect.prototype.removeCNameRecord = function(zone, node, callback)
 		},
 		function(err)
 		{
-			return callback(err);
+			if (err)
+				return mainCallback(err);
+
+			// - publish
+			self.send('PUT', '/Zone/' + zone, {publish: 'true'}, function(err)
+			{
+				return mainCallback(err);
+			});
 		});
 	});
 };
